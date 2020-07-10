@@ -33,7 +33,8 @@ const Attendance = () => {
     }
 
     const [state,dispatch] = useReducer(reducer,INITIAL_STATE);
-    const { Attendance, isAPILoaded } = state;
+    const { Attendance, isAPILoaded, id } = state;
+    let a = 0;
 
     useEffect(() =>{
          fetch("https://jsonblob.com/api/b1f6d678-bf64-11ea-9e44-2f40f17eaf41").then(response => response.json())
@@ -54,6 +55,12 @@ const Attendance = () => {
     const details = (key) => {
         dispatch({ type: 'Details_Update', data: key})
         console.log(state);
+    }
+
+    const Count = (id,key) => {
+        console.log(id,key)
+       if(Attendance[id][key] == "Present")
+       a++;
     }
 
     return(
@@ -108,15 +115,17 @@ const Attendance = () => {
                          <div className = "col"><b>Present/Absent</b></div>
                      </div>
                     {
-                        Object.keys(Attendance[state.id]).map((key) =>
+                        Object.keys(Attendance[id]).map((key) =>
                         <div className = "row border">
                             <div className = "col">{key}</div>
-                            <div className = "col">{Attendance[state.id][key]}</div>
+                            <div className = "col">{Attendance[id][key]}</div>
+                           { Count(id,key)}
                             </div>
                         )
                     }
                    </div>
             </div>
+                    <div className = "mt-2"><b>Number of Days Present till date : </b>{a}</div>
         </div>
         )
     }
