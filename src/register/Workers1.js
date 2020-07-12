@@ -50,7 +50,7 @@ const Workers1 = () => {
                             <ul style={{ listStyle: "none" }} className="float-left">
                               <li className="mt-2"><span class="badge badge-success mr-2">Salary :</span>Rs.{salary.toLocaleString()}</li>
                               <li className="mt-2"><span class="badge badge-danger mr-2">Spent :</span>Rs.{spent.toLocaleString()}</li>
-                              <li className="mt-2"><span class="badge badge-warning mr-2">Balance :</span>Rs.{(salary - spent).toLocaleString()}</li>
+                              <li className="mt-2"><span class="badge badge-warning mr-2">Balance :</span>Rs.{(salary - spent).toString().replace(/\B(?=(\d{3})+(?!\d))/g, ",")}</li>
                             </ul>
                           </div>
                           <div className="col">

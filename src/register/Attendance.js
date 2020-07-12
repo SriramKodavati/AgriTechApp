@@ -49,7 +49,7 @@ const Attendance = () => {
 
     const submit = () => {
         dispatch({type: 'Update_Items', data : Attendance});
-        document.getElementById("data").value = "";
+        document.getElementById("date").value = "";
     }
 
     const details = (key) => {
