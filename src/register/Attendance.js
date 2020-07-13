@@ -59,7 +59,7 @@ const Attendance = () => {
 
     const Count = (id,key) => {
         console.log(id,key)
-       if(Attendance[id][key] == "Present")
+       if(Attendance[id][key] === "Present")
        a++;
     }
 

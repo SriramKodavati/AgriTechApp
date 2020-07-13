@@ -29,7 +29,7 @@ const Nav = () => {
                                     Crops
               </a>
                                 <div class="dropdown-menu" aria-labelledby="navbarDropdown">
-                                    <Link to="/tobacco1">
+                                    <Link to="/tobacco">
                                         <a class="dropdown-item" href="#">Tobacco</a>
                                     </Link>
                                     <Link to="/paddy">
