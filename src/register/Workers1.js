@@ -21,8 +21,7 @@ const Workers1 = () => {
       const addEntry = (i) => {
             console.log(i);
             setWorkers([...Workers.slice(0,i),{...Workers[i],spent:Amount},...Workers.slice(i+1)]);
-            console.log(document.getElementById("newEntry").value);
-            document.getElementById("newEntry").value = "";
+            document.getElementById(`newEntry${i}`).value = "";
             // document.getElementById("myForm").reset();
       };
 
@@ -57,7 +56,7 @@ const Workers1 = () => {
                             {/* <form id = "myForm">
                               <div class="form-group"> */}
                                 <label for="newEntry" className="float-left">New Entry</label>
-                                <input type="number" class="form-control" id="newEntry" onChange={(e) => handleInput(e,index)} placeholder="Amount took"  />
+                                <input type="number" class="form-control" id={`newEntry${index}`} onChange={(e) => handleInput(e,index)} placeholder="Amount took"  />
                                 <button type="button" class="btn btn-primary float-left mt-2" onClick={(e) => {e.preventDefault();addEntry(index)}}>ADD</button>
                               {/* </div>
                             </form> */}
