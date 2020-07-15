@@ -5,7 +5,6 @@ import { BrowserRouter as Router, Switch, Route } from 'react-router-dom';
 import Nav from './register/Nav';
 import Home from './register/Home';
 import Todo from './register/Todo';
-import Calculator from './register/Calculator';
 import Attendance from './register/Attendance';
 import Crops from './register/Crops';
 
@@ -21,7 +20,6 @@ function App() {
        <Route path="/todo" component={Todo}></Route>
        <Route path="/tobacco" component={() => <Crops name = {"Tobacco"}/>}></Route>
        <Route path="/paddy" component={() => <Crops name = {"Paddy"}/>}></Route>
-       <Route path="/calculator" component={Calculator}></Route>
        <Route path="/attendance" component={Attendance}></Route>
        </Switch>
     </div>

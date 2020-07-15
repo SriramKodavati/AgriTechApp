@@ -47,7 +47,7 @@ const Crops = ({name}) => {
         {
             !isAPILoaded ? (<img src="https://media.giphy.com/media/xTk9ZvMnbIiIew7IpW/giphy.gif" alt="Loading" />) : (
                 <div className="container">
-                    <h4 className="color:blue;">Tobacco</h4>
+                    <h4 className="color:blue;">{name}</h4>
                     <ul style={{listStyle:"none"}}>
                         <li><b>No of Acres:  </b>{acres}</li>
                         <li><b>Own Land:  </b>{own}</li>

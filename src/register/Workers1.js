@@ -13,7 +13,7 @@ const Workers1 = () => {
             setisAPILoaded(true);
         })
       }, []);
-
+ 
       const handleInput = (e,index) => {
            setAmount(Workers[index].spent + parseInt(e.target.value));
       }; 

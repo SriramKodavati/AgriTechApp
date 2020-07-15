@@ -35,8 +35,6 @@ const Nav = () => {
                                     <Link to="/paddy">
                                         <a class="dropdown-item" href="#">Rice</a>
                                     </Link>
-                                    <div class="dropdown-divider"></div>
-                                    <a class="dropdown-item" href="#">Others..!</a>
                                 </div>
                             </li>
                             <Link to="/todo">
