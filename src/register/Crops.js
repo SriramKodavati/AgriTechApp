@@ -11,23 +11,30 @@ const Crops = ({name}) => {
     })
 
     useEffect(() => {
-        console.log(name);
         if(name === "Tobacco")
         {
         fetch("https://jsonblob.com/api/bb51641f-9cd2-11ea-9a4c-2fff4269ce0f").then(response => response.json())
             .then(json => {
-                setCrops({...json});
-                setisAPILoaded(true);
+                // setCrops({...json});
+                // setisAPILoaded(true);
+                initializeState(json);
             })
         }
-        else {
+        if( name === "Paddy")
+        {
             fetch("https://jsonblob.com/api/feafbb19-bc70-11ea-8cae-c59a19998da5").then(response => response.json())
             .then(json => {
-                setCrops({...json});
-                setisAPILoaded(true);
+                // setCrops({...json});
+                // setisAPILoaded(true);
+                initializeState(json);
             })
         }
-    }, []);
+    });
+
+    const initializeState = (json) => {
+          setCrops({...json});
+          setisAPILoaded(true);
+    } 
 
     const handleInput = (e) => {
         const { value, id } = e.target;
@@ -35,7 +42,6 @@ const Crops = ({name}) => {
     }
 
     const addEntry = () => {
-        console.log(Debit);
         setCrops({...Crops,exp:[...exp,Debit]});
         document.getElementById("reason").value = "";
         document.getElementById("amount").value = "";
@@ -57,10 +63,10 @@ const Crops = ({name}) => {
                 <b>Add Day-to-Day Expenditure here: </b>
                 <form>
                     <label><b>Purpose</b></label>
-                <input type="text" class="form-control" onChange={(e) => handleInput(e)} id="reason" placeholder="Enter the Purpose"></input>
+                <input type="text" className="form-control" onChange={(e) => handleInput(e)} id="reason" placeholder="Enter the Purpose"></input>
             <label><b>Amount</b></label>
             <input type="number" className="form-control" onChange={(e) => handleInput(e)} id="amount" placeholder="Enter the Amount"></input>
-            <button class="btn btn-primary m-3" type="button" onClick={() => addEntry()}>ADD</button>
+            <button className="btn btn-primary m-3" type="button" onClick={() => addEntry()}>ADD</button>
                 </form>
                     <b className="mb-3">Expenses:-</b>
                             <div className="row mt-3">
@@ -68,7 +74,7 @@ const Crops = ({name}) => {
                         <div className="col"><b><span className="badge badge-info">Amount(Rs.)</span></b></div>
                         </div>
                     {exp.map((item, index) =>
-                        <div>
+                        <div key = {index}>
                            <div className="row mt-4 border borde-success">
                                 <div className="col">{item.reason}</div>
                                 <div className="col">{(item.amount).toLocaleString()}</div>

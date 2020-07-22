@@ -54,7 +54,6 @@ const Todo = () => {
     }
 
     const Delete = (i) => {
-        console.log(i);
         todo.do.splice(i,0);
         dispatch({type:"Delete_Data",data:todo});
     }
@@ -71,9 +70,9 @@ const Todo = () => {
                 </form>
                 <div><b>Works that are yet to be done..!</b></div>
                 { todo.do.map((item,index) => 
-                   <div class="alert alert-primary alert-dismissible fade show" role="alert">
+                   <div key = {index} className="alert alert-primary alert-dismissible fade show" role="alert">
                   {item}
-                   <button type="button" class="close" data-dismiss="alert" aria-label="Close" onClick={() => Delete(index)}>
+                   <button type="button" className="close" data-dismiss="alert" aria-label="Close" onClick={() => Delete(index)}>
                      <span aria-hidden="true">&times;</span>
                    </button>
                  </div>

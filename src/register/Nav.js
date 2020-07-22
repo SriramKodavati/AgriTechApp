@@ -6,43 +6,43 @@ const Nav = () => {
     return (
         <>
             <div className="container ">
-                <nav class="navbar navbar-expand-lg navbar-light bg-light">
-                    <a class="navbar-brand" href="#">AgriTech</a>
-                    <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
-                        <span class="navbar-toggler-icon"></span>
+                <nav className="navbar navbar-expand-lg navbar-light bg-light">
+                    <div className="navbar-brand">AgriTech</div>
+                    <button className="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
+                        <span className="navbar-toggler-icon"></span>
                     </button>
 
-                    <div class="collapse navbar-collapse" id="navbarSupportedContent">
-                        <ul class="navbar-nav mr-auto">
+                    <div className="collapse navbar-collapse" id="navbarSupportedContent">
+                        <ul className="navbar-nav mr-auto">
                             <Link to="/">
-                                <li class="nav-item active">
-                                    <a class="nav-link">Home <span class="sr-only">(current)</span></a>
+                                <li className="nav-item text-secondary active">
+                                    <div className = "nav-link">Home</div>
                                 </li>
                             </Link>
                             <Link to="/workers1">
-                                <li class="nav-item">
-                                    <a class="nav-link">Workers</a>
+                                <li className="nav-item">
+                                    <div className = "nav-link">Workers</div>
                                 </li>
                             </Link>
-                            <li class="nav-item dropdown">
-                                <a class="nav-link dropdown-toggle" href="#" id="navbarDropdown" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+                            <li className="nav-item dropdown">
+                                <div className="nav-link dropdown-toggle"  id="navbarDropdown" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
                                     Crops
-              </a>
-                                <div class="dropdown-menu" aria-labelledby="navbarDropdown">
+              </div>
+                                <div className="dropdown-menu" aria-labelledby="navbarDropdown">
                                     <Link to="/tobacco">
-                                        <a class="dropdown-item" href="#">Tobacco</a>
+                                        <div className="dropdown-item">Tobacco</div>
                                     </Link>
                                     <Link to="/paddy">
-                                        <a class="dropdown-item" href="#">Rice</a>
+                                        <div className="dropdown-item">Rice</div>
                                     </Link>
                                 </div>
                             </li>
                             <Link to="/todo">
-                                <a class="nav-link" href="#">To Do</a>
+                                <div className="nav-link">To Do</div>
                             </Link>
                             <Link to = "/attendance">
                                 <li>
-                                    <a className="nav-link">Attendance</a>
+                                    <div className="nav-link">Attendance</div>
                                 </li>
                             </Link>
                         </ul>

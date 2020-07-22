@@ -19,34 +19,31 @@ const Weather = () => {
                 }
             }
             case 'Item_Select': {
-                console.log(state);
-                console.log(Number(data));
                 return {
                     ...state,days: Number(data)
                 }
             }
             case 'City_Select' : {
-                console.log(data);
                 return{
                     ...state,city:data
                 }
             }
+            default:
+                return state;
         }
     }
 
     const [state, dispatch] = useReducer(reducer, INITIAL_STATE);
     const { weather, isAPILoaded, days, city } = state;
     useEffect(() => {
-        console.log("effect fn");
-        fetch("https://cors-anywhere.herokuapp.com/" + "http://api.weatherapi.com/v1/forecast.json?key=8bd10872b21842f4b17105656202206&q=Rajahmundry&days=3")
+        fetch(`https://cors-anywhere.herokuapp.com/http://api.weatherapi.com/v1/forecast.json?key=8bd10872b21842f4b17105656202206&q=Rajahmundry&days=3`)
             .then(response => response.json()).then(json => {
                 dispatch({ type: 'Fetch_Data', data: { weather: { ...json } } })
             })
     }, [])
 
     const update = () => {
-        console.log("update fn");
-        fetch("https://cors-anywhere.herokuapp.com/" + `http://api.weatherapi.com/v1/forecast.json?key=8bd10872b21842f4b17105656202206&q=${city}&days=${days}`)
+        fetch(`https://cors-anywhere.herokuapp.com/http://api.weatherapi.com/v1/forecast.json?key=8bd10872b21842f4b17105656202206&q=${city}&days=${days}`)
         .then(response => response.json()).then(json => {
             dispatch({ type: 'Fetch_Data', data: { weather: { ...json } } })
         })
@@ -54,7 +51,7 @@ const Weather = () => {
         document.getElementById("days").selectedIndex = 0;
     }
 
-    const { location, current, forecast, alert } = weather;
+    const { location, current, forecast } = weather;
     return (
         <>
             {
@@ -64,8 +61,8 @@ const Weather = () => {
                         <b>Weather Report: </b>
                         <div>
                         <div className="m-2">Enter the location you want to know weather about and number of Days: </div>
-                        <div class="input-group">
-                <input type="text" class="form-control" id = "location" onChange={(e) => {e.preventDefault();dispatch({type: 'City_Select', data: e.target.value})}} placeholder="location"></input>
+                        <div className="input-group">
+                <input type="text" className="form-control" id = "location" onChange={(e) => {e.preventDefault();dispatch({type: 'City_Select', data: e.target.value})}} placeholder="location"></input>
                             <select className="m-2" id = "days"
                                 onChange={(e) => {e.preventDefault();dispatch({type: 'Item_Select', data: e.target.value})}} >
                                 <option value="Choose">Select</option>
@@ -73,8 +70,8 @@ const Weather = () => {
                                 <option value="2">2</option>
                                 <option value="3">3</option>
                             </select>
-                            <span class="input-group-btn">
-                    <button class="btn btn-primary" type="button" onClick={update}>Search</button>
+                            <span className="input-group-btn">
+                    <button className="btn btn-primary" type="button" onClick={update}>Search</button>
                 </span>
             </div>
                         </div>
@@ -92,12 +89,12 @@ const Weather = () => {
                             <div className="col"><b>Chance of Rain</b></div>
                         </div>
                         {forecast.forecastday.map((item, index) =>
-                            <div>
+                            <div key = {index}>
                                 <div className="row mt-4 border">
-                                    <div className="col">{item.date}</div>
-                                    <div className="col">{item.day.maxtemp_c} & {item.day.mintemp_c}</div>
-                                    <div className="col">{item.day.condition.text}</div>
-                                    <div className="col">{item.day.daily_chance_of_rain}</div>
+                                    <div key = {index} className="col">{item.date}</div>
+                                    <div key = {index + 1} className="col">{item.day.maxtemp_c} & {item.day.mintemp_c}</div>
+                                    <div key = {index + 2} className="col">{item.day.condition.text}</div>
+                                    <div key = {index + 3} className="col">{item.day.daily_chance_of_rain}</div>
                                 </div>
                             </div>
                         )}

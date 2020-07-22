@@ -54,11 +54,9 @@ const Attendance = () => {
 
     const details = (key) => {
         dispatch({ type: 'Details_Update', data: key})
-        console.log(state);
     }
 
     const Count = (id,key) => {
-        console.log(id,key)
        if(Attendance[id][key] === "Present")
        a++;
     }
@@ -80,15 +78,15 @@ const Attendance = () => {
             </div>
         {
             Object.keys(Attendance).map((key, index) =>
-            <div className = "row m-2 border">
+            <div key = {index} className = "row m-2 border">
                 <div className = "col">
                       {key}
                     </div>
                 <div className = "col"> 
-                <input class="form-check-input" type="radio" name={index} id="exampleRadios2" onChange = {(e) => update(e,key)} value="Present"/>
+                <input className="form-check-input" type="radio" name={index} id="exampleRadios2" onChange = {(e) => update(e,key)} value="Present"/>
                       </div>
                 <div className = "col"> 
-                <input class="form-check-input" type="radio" name={index} id="exampleRadios2" onChange = {(e) => update(e,key)} value="Absent"/>
+                <input className="form-check-input" type="radio" name={index} id="exampleRadios2" onChange = {(e) => update(e,key)} value="Absent"/>
                       </div>
                 </div>
               )
@@ -102,9 +100,9 @@ const Attendance = () => {
                     <ul style = {{listStyle : "none"}}>
                 {
                   Object.keys(Attendance).map((key,index) =>
-                  <li>
+                  <li key = {index}>
                   <input type = "radio" name="workers" id = {index} onClick = { () => details(key)} ></input> 
-                  <label className = "ml-2" for = {index}>{key}</label>
+                  <label className = "ml-2" htmlFor = {index}>{key}</label>
                 </li>
                    ) }
                    </ul>
@@ -115,8 +113,8 @@ const Attendance = () => {
                          <div className = "col"><b>Present/Absent</b></div>
                      </div>
                     {
-                        Object.keys(Attendance[id]).map((key) =>
-                        <div className = "row border">
+                        Object.keys(Attendance[id]).map((key,index) =>
+                        <div key = {index} className = "row border">
                             <div className = "col">{key}</div>
                             <div className = "col">{Attendance[id][key]}</div>
                            { Count(id,key)}
@@ -133,4 +131,4 @@ const Attendance = () => {
     );
 }
 
-export default Attendance;
+export default Attendance;  
