@@ -38,6 +38,7 @@ const Crops = ({name}) => {
 
     const handleInput = (e) => {
         const { value, id } = e.target;
+        console.log(value,id);
         setDebit({...Debit,[id]:value})
     }
 
@@ -63,6 +64,17 @@ const Crops = ({name}) => {
                 <b>Add Day-to-Day Expenditure here: </b>
                 <form>
                     <label><b>Purpose</b></label>
+                    <div className="input-group mb-3">
+  <div className="input-group-prepend">
+    <button className="btn btn-outline-secondary dropdown-toggle" type="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">Works</button>
+    <div className="dropdown-menu">
+      <div className="dropdown-item" onClick = {(e) => handleInput(e)} id = "reason" value = "Action">Action</div>
+      <div class="dropdown-item">Another action</div>
+      <div class="dropdown-item">Something else here</div>
+    </div>
+  </div>
+  <input type="text" className="form-control" onChange={(e) => handleInput(e)} id="reason" placeholder="Enter the Purpose"></input>
+</div>
                 <input type="text" className="form-control" onChange={(e) => handleInput(e)} id="reason" placeholder="Enter the Purpose"></input>
             <label><b>Amount</b></label>
             <input type="number" className="form-control" onChange={(e) => handleInput(e)} id="amount" placeholder="Enter the Amount"></input>
