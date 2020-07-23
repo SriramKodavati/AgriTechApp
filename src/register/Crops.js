@@ -5,18 +5,23 @@ const Crops = ({name}) => {
 
     const [Crops,setCrops] = useState({});
     const [isAPILoaded,setisAPILoaded] = useState(false);
-    const [Debit,setDebit] = useState({
-        reason:"",
-        amount:0
-    })
+    const [Debit, setDebit] = useState({
+        reason: "",
+        amount: 0
+    });
+    const [values, setValues] = useState(
+        {
+            inputValue1 : "Choose",
+            inputValue2 : "",
+            inputValue3 : ""
+        }
+    )
 
     useEffect(() => {
         if(name === "Tobacco")
         {
         fetch("https://jsonblob.com/api/bb51641f-9cd2-11ea-9a4c-2fff4269ce0f").then(response => response.json())
             .then(json => {
-                // setCrops({...json});
-                // setisAPILoaded(true);
                 initializeState(json);
             })
         }
@@ -24,12 +29,10 @@ const Crops = ({name}) => {
         {
             fetch("https://jsonblob.com/api/feafbb19-bc70-11ea-8cae-c59a19998da5").then(response => response.json())
             .then(json => {
-                // setCrops({...json});
-                // setisAPILoaded(true);
                 initializeState(json);
             })
         }
-    });
+    }, {});
 
     const initializeState = (json) => {
           setCrops({...json});
@@ -38,21 +41,24 @@ const Crops = ({name}) => {
 
     const handleInput = (e) => {
         const { value, id } = e.target;
-        console.log(value,id);
-        setDebit({...Debit,[id]:value})
+        setDebit({ ...Debit, [id]: value });
+        setValues({in})
+        console.log(Debit);
     }
 
     const addEntry = () => {
-        setCrops({...Crops,exp:[...exp,Debit]});
-        document.getElementById("reason").value = "";
-        document.getElementById("amount").value = "";
+        setCrops({ ...Crops, exp: [...exp, Debit] });
+        //document.getElementById("reason").value = "";
+        //document.getElementById("reason").selectedIndex = 0;
+        //document.getElementById("amount").value = "";
+        setValues(values);
     }
 
     const { acres,own,rented,budget,exp} = Crops;
     return(
         <>
         {
-            !isAPILoaded ? (<img src="https://media.giphy.com/media/xTk9ZvMnbIiIew7IpW/giphy.gif" alt="Loading" />) : (
+                !isAPILoaded ? (<img src="https://media.giphy.com/media/xTk9ZvMnbIiIew7IpW/giphy.gif" alt="Loading" />) : (
                 <div className="container">
                     <h4 className="color:blue;">{name}</h4>
                     <ul style={{listStyle:"none"}}>
@@ -65,19 +71,19 @@ const Crops = ({name}) => {
                 <form>
                     <label><b>Purpose</b></label>
                     <div className="input-group mb-3">
-  <div className="input-group-prepend">
-    <button className="btn btn-outline-secondary dropdown-toggle" type="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">Works</button>
-    <div className="dropdown-menu">
-      <div className="dropdown-item" onClick = {(e) => handleInput(e)} id = "reason" value = "Action">Action</div>
-      <div class="dropdown-item">Another action</div>
-      <div class="dropdown-item">Something else here</div>
-    </div>
+                                <div className="input-group-prepend">
+                                    <select id="reason" onChange={(e) => handleInput(e)}>
+                                        <option value={values.inputValue1}>{values.inputValue1}</option>
+                                        <option value="Plantation">Plantation</option>
+                                        <option value="Ploughing">Ploughing</option>
+                                        <option value="Pesticides">Pesticides</option>
+                                    </select>
   </div>
   <input type="text" className="form-control" onChange={(e) => handleInput(e)} id="reason" placeholder="Enter the Purpose"></input>
-</div>
-                <input type="text" className="form-control" onChange={(e) => handleInput(e)} id="reason" placeholder="Enter the Purpose"></input>
-            <label><b>Amount</b></label>
-            <input type="number" className="form-control" onChange={(e) => handleInput(e)} id="amount" placeholder="Enter the Amount"></input>
+                            </div>
+                            <input type="text" className="form-control" value={values.inputValue2} onChange={(e) => handleInput(e)} id="reason" placeholder="Enter the Purpose"></input>
+                            <label><b>Amount</b></label>
+                            <input type="number" className="form-control" value={values.inputValue3} onChange={(e) => handleInput(e)} id="amount" placeholder="Enter the Amount"></input>
             <button className="btn btn-primary m-3" type="button" onClick={() => addEntry()}>ADD</button>
                 </form>
                     <b className="mb-3">Expenses:-</b>
