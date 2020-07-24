@@ -6,16 +6,10 @@ const Crops = ({name}) => {
     const [Crops,setCrops] = useState({});
     const [isAPILoaded,setisAPILoaded] = useState(false);
     const [Debit, setDebit] = useState({
+        op:false,
         reason: "",
-        amount: 0
+        amount: ""
     });
-    const [values, setValues] = useState(
-        {
-            inputValue1 : "Choose",
-            inputValue2 : "",
-            inputValue3 : ""
-        }
-    )
 
     useEffect(() => {
         if(name === "Tobacco")
@@ -32,7 +26,7 @@ const Crops = ({name}) => {
                 initializeState(json);
             })
         }
-    }, {});
+    },[]);
 
     const initializeState = (json) => {
           setCrops({...json});
@@ -42,19 +36,18 @@ const Crops = ({name}) => {
     const handleInput = (e) => {
         const { value, id } = e.target;
         setDebit({ ...Debit, [id]: value });
-        setValues({in})
         console.log(Debit);
     }
 
     const addEntry = () => {
         setCrops({ ...Crops, exp: [...exp, Debit] });
-        //document.getElementById("reason").value = "";
-        //document.getElementById("reason").selectedIndex = 0;
-        //document.getElementById("amount").value = "";
-        setValues(values);
+        setDebit({
+            reason: "",
+            amount: ""
+        });
     }
 
-    const { acres,own,rented,budget,exp} = Crops;
+    const { acres,own,rented,budget,exp, inputs} = Crops;
     return(
         <>
         {
@@ -73,17 +66,15 @@ const Crops = ({name}) => {
                     <div className="input-group mb-3">
                                 <div className="input-group-prepend">
                                     <select id="reason" onChange={(e) => handleInput(e)}>
-                                        <option value={values.inputValue1}>{values.inputValue1}</option>
-                                        <option value="Plantation">Plantation</option>
-                                        <option value="Ploughing">Ploughing</option>
-                                        <option value="Pesticides">Pesticides</option>
+                                        {inputs.map((item,index)=>
+                                        <option key = {index} value={item} {(Debit.op)?(Selected):("")}>{item}</option>
+                                        )}
                                     </select>
   </div>
-  <input type="text" className="form-control" onChange={(e) => handleInput(e)} id="reason" placeholder="Enter the Purpose"></input>
+  <input type="text" className="form-control" value={Debit.reason} onChange={(e) => handleInput(e)} id="reason" placeholder="Enter the Purpose"></input>
                             </div>
-                            <input type="text" className="form-control" value={values.inputValue2} onChange={(e) => handleInput(e)} id="reason" placeholder="Enter the Purpose"></input>
                             <label><b>Amount</b></label>
-                            <input type="number" className="form-control" value={values.inputValue3} onChange={(e) => handleInput(e)} id="amount" placeholder="Enter the Amount"></input>
+                            <input type="number" className="form-control" value={Debit.amount} onChange={(e) => handleInput(e)} id="amount" placeholder="Enter the Amount"></input>
             <button className="btn btn-primary m-3" type="button" onClick={() => addEntry()}>ADD</button>
                 </form>
                     <b className="mb-3">Expenses:-</b>
