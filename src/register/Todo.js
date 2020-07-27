@@ -25,7 +25,8 @@ const Todo = () => {
             }
             case 'Update_Data':{
                 return{
-                    ...state,...data
+                    ...state, ...data,
+                    ...state, work: " "
                 }
             }
             case 'Delete_Data':{
@@ -50,7 +51,6 @@ const Todo = () => {
     const Update = () => {
        todo.do.push(work);
        dispatch({type:"Update_Data",data:todo});
-       document.getElementById("work").value = "";
     }
 
     const Delete = (i) => {
@@ -64,8 +64,8 @@ const Todo = () => {
            !isAPILoaded ? (<img src="https://media.giphy.com/media/xTk9ZvMnbIiIew7IpW/giphy.gif" alt="Loading"/>) : (
             <div className="container">
                 <form>
-                    <label>Add Works that are to be done</label>
-                    <input type="text" className="form-control" id = "work" onChange={(e) => {dispatch({ type: 'Input_Data', data: e.target.value})}}></input>
+                            <label>Add Works that are to be done</label>
+                            <input type="text" className="form-control" id="work" value={work} onChange={(e) => { dispatch({ type: 'Input_Data', data: e.target.value }) }}></input>
                     <button className="btn-primary" onClick={(e) => {e.preventDefault();Update()}}>Submit</button>
                 </form>
                 <div><b>Works that are yet to be done..!</b></div>

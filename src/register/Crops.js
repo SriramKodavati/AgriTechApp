@@ -6,7 +6,6 @@ const Crops = ({name}) => {
     const [Crops,setCrops] = useState({});
     const [isAPILoaded,setisAPILoaded] = useState(false);
     const [Debit, setDebit] = useState({
-        op:false,
         reason: "",
         amount: ""
     });
@@ -66,8 +65,8 @@ const Crops = ({name}) => {
                     <div className="input-group mb-3">
                                 <div className="input-group-prepend">
                                     <select id="reason" onChange={(e) => handleInput(e)}>
-                                        {inputs.map((item,index)=>
-                                        <option key = {index} value={item} {(Debit.op)?(Selected):("")}>{item}</option>
+                                        {inputs.map(({ name, isSelected }, index) =>
+                                            <option key={index} value={name} selected={!isSelected}>{name}</option>
                                         )}
                                     </select>
   </div>

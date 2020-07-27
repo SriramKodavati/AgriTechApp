@@ -44,11 +44,10 @@ const Weather = () => {
 
     const update = () => {
         fetch(`https://cors-anywhere.herokuapp.com/http://api.weatherapi.com/v1/forecast.json?key=8bd10872b21842f4b17105656202206&q=${city}&days=${days}`)
-        .then(response => response.json()).then(json => {
-            dispatch({ type: 'Fetch_Data', data: { weather: { ...json } } })
-        })
-        document.getElementById("location").value = "";
-        document.getElementById("days").selectedIndex = 0;
+            .then(response => response.json()).then(json => {
+                dispatch({ type: 'Fetch_Data', data: { weather: { ...json } } })
+            })
+        state.city = ""; 
     }
 
     const { location, current, forecast } = weather;
@@ -61,8 +60,8 @@ const Weather = () => {
                         <b>Weather Report: </b>
                         <div>
                         <div className="m-2">Enter the location you want to know weather about and number of Days: </div>
-                        <div className="input-group">
-                <input type="text" className="form-control" id = "location" onChange={(e) => {e.preventDefault();dispatch({type: 'City_Select', data: e.target.value})}} placeholder="location"></input>
+                            <div className="input-group">
+                                <input type="text" className="form-control" id="location" value={city} onChange={(e) => { e.preventDefault(); dispatch({ type: 'City_Select', data: e.target.value }) }} placeholder="location"></input>
                             <select className="m-2" id = "days"
                                 onChange={(e) => {e.preventDefault();dispatch({type: 'Item_Select', data: e.target.value})}} >
                                 <option value="Choose">Select</option>
