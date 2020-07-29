@@ -25,7 +25,7 @@ const Crops = ({name}) => {
                 initializeState(json);
             })
         }
-    },[]);
+    },[name]);
 
     const initializeState = (json) => {
           setCrops({...json});
@@ -35,7 +35,6 @@ const Crops = ({name}) => {
     const handleInput = (e) => {
         const { value, id } = e.target;
         setDebit({ ...Debit, [id]: value });
-        console.log(Debit);
     }
 
     const addEntry = () => {
@@ -66,7 +65,7 @@ const Crops = ({name}) => {
                                 <div className="input-group-prepend">
                                     <select id="reason" onChange={(e) => handleInput(e)}>
                                         {inputs.map(({ name, isSelected }, index) =>
-                                            <option key={index} value={name} selected={!isSelected}>{name}</option>
+                                            <option key={index} value={name}>{name}</option>
                                         )}
                                     </select>
   </div>
