@@ -6,7 +6,8 @@ const Weather = () => {
         weather: {},
         isAPILoaded: false,
         days:3,
-        city:""
+        city: "",
+        errCity: ""
     }
 
     const reducer = (state, action) => {
@@ -36,14 +37,20 @@ const Weather = () => {
     const [state, dispatch] = useReducer(reducer, INITIAL_STATE);
     const { weather, isAPILoaded, days, city } = state;
     useEffect(() => {
-        fetch(`https://cors-anywhere.herokuapp.com/http://api.weatherapi.com/v1/forecast.json?key=8bd10872b21842f4b17105656202206&q=Rajahmundry&days=3`)
+        fetch(`http://api.weatherapi.com/v1/forecast.json?key=8bd10872b21842f4b17105656202206&q=Rajahmundry&days=3`)
             .then(response => response.json()).then(json => {
                 dispatch({ type: 'Fetch_Data', data: { weather: { ...json } } })
             })
     }, [])
 
+    const handleInput = (e) => {
+        e.preventDefault();
+        if (e.target.value > 2) 
+        dispatch({ type: 'City_Select', data: e.target.value });
+    }
+
     const update = () => {
-        fetch(`https://cors-anywhere.herokuapp.com/http://api.weatherapi.com/v1/forecast.json?key=8bd10872b21842f4b17105656202206&q=${city}&days=${days}`)
+        fetch(`http://api.weatherapi.com/v1/forecast.json?key=8bd10872b21842f4b17105656202206&q=${city}&days=${days}`)
             .then(response => response.json()).then(json => {
                 dispatch({ type: 'Fetch_Data', data: { weather: { ...json } } })
             })
@@ -61,7 +68,7 @@ const Weather = () => {
                         <div>
                         <div className="m-2">Enter the location you want to know weather about and number of Days: </div>
                             <div className="input-group">
-                                <input type="text" className="form-control" id="location" value={city} onChange={(e) => { e.preventDefault(); dispatch({ type: 'City_Select', data: e.target.value }) }} placeholder="location"></input>
+                                <input type="text" className="form-control" id="location" value={city} onChange={(e) => handleInput(e)} placeholder="location"></input>
                             <select className="m-2" id = "days"
                                 onChange={(e) => {e.preventDefault();dispatch({type: 'Item_Select', data: e.target.value})}} >
                                 <option value="Choose">Select</option>
