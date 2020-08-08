@@ -7,10 +7,9 @@ const Weather = () => {
         isAPILoaded: false,
         days:3,
         city: "",
-        errCity: ""
+        errCity: "",
+        isValid : false
     }
-
-    var isValid = false;
 
     const reducer = (state, action) => {
         const { type, data } = action;
@@ -37,7 +36,7 @@ const Weather = () => {
     }
 
     const [state, dispatch] = useReducer(reducer, INITIAL_STATE);
-    const { weather, isAPILoaded, days, city, errCity } = state;
+    const { weather, isAPILoaded, days, city, errCity, isValid } = state;
     useEffect(() => {
         fetch(`http://api.weatherapi.com/v1/forecast.json?key=8bd10872b21842f4b17105656202206&q=Rajahmundry&days=3`)
             .then(response => response.json()).then(json => {
@@ -52,12 +51,13 @@ const Weather = () => {
             state.errCity = "City name cannot be less than 2 characters";
         }
         else {
-            isValid = true;
+            state.isValid = true;
             state.errCity = "";
         }
     }
 
     const update = () => {
+        
         if (isValid === false)
             alert("City field cannot be empty");
         else {
