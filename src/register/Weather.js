@@ -10,6 +10,8 @@ const Weather = () => {
         errCity: ""
     }
 
+    var isValid = false;
+
     const reducer = (state, action) => {
         const { type, data } = action;
         switch (type) {
@@ -35,7 +37,7 @@ const Weather = () => {
     }
 
     const [state, dispatch] = useReducer(reducer, INITIAL_STATE);
-    const { weather, isAPILoaded, days, city } = state;
+    const { weather, isAPILoaded, days, city, errCity } = state;
     useEffect(() => {
         fetch(`http://api.weatherapi.com/v1/forecast.json?key=8bd10872b21842f4b17105656202206&q=Rajahmundry&days=3`)
             .then(response => response.json()).then(json => {
@@ -45,23 +47,33 @@ const Weather = () => {
 
     const handleInput = (e) => {
         e.preventDefault();
-        if (e.target.value > 2) 
         dispatch({ type: 'City_Select', data: e.target.value });
+        if (state.city.length < 3) {
+            state.errCity = "City name cannot be less than 2 characters";
+        }
+        else {
+            isValid = true;
+            state.errCity = "";
+        }
     }
 
     const update = () => {
-        fetch(`http://api.weatherapi.com/v1/forecast.json?key=8bd10872b21842f4b17105656202206&q=${city}&days=${days}`)
-            .then(response => response.json()).then(json => {
-                dispatch({ type: 'Fetch_Data', data: { weather: { ...json } } })
-            })
-        state.city = ""; 
+        if (isValid === false)
+            alert("City field cannot be empty");
+        else {
+            fetch(`http://api.weatherapi.com/v1/forecast.json?key=8bd10872b21842f4b17105656202206&q=${city}&days=${days}`)
+                .then(response => response.json()).then(json => {
+                    dispatch({ type: 'Fetch_Data', data: { weather: { ...json } } })
+                })
+            state.city = "";
+        }
     }
 
     const { location, current, forecast } = weather;
     return (
         <>
             {
-                !isAPILoaded ? (<img src="https://media.giphy.com/media/xTk9ZvMnbIiIew7IpW/giphy.gif" alt="loading"/>) : (
+                !isAPILoaded ? (<img src="https://media.giphy.com/media/xTk9ZvMnbIiIew7IpW/giphy.gif" alt="loading" />) : (
                     <div className="container">
                         <br />
                         <b>Weather Report: </b>
@@ -78,8 +90,9 @@ const Weather = () => {
                             </select>
                             <span className="input-group-btn">
                     <button className="btn btn-primary" type="button" onClick={update}>Search</button>
-                </span>
-            </div>
+                             </span>
+                            </div>
+                            {(!isValid) ? <span style={{ color: "red" }}>{errCity}</span> : ""}
                         </div>
                         <ul>
                             <li><b>Country: </b>{location.country}</li>
