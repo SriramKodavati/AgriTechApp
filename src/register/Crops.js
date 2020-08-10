@@ -9,6 +9,11 @@ const Crops = ({name}) => {
         reason: "",
         amount: ""
     });
+    const [erDebit, setErDebit] = useState({
+        reason: "",
+        amount: ""
+    });
+    const [isValid, setisValid] = useState(false);
 
     useEffect(() => {
         if(name === "Tobacco")
